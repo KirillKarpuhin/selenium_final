@@ -7,3 +7,6 @@ class MainPageLocators():
 class LoginPageLocators():
     LOGIN_FORM = (By.ID, "login_form")
     REGISTER_FORM = (By.ID, "register_form")
+
+class ProductPageLocators():
+    ADD_BUTTON = (By.CSS_SELECTOR, "button.btn-add-to-basket")
