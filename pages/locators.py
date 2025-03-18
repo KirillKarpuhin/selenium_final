@@ -9,4 +9,14 @@ class LoginPageLocators():
     REGISTER_FORM = (By.ID, "register_form")
 
 class ProductPageLocators():
+
+    # Нажатие на кнопку Добавления
     ADD_BUTTON = (By.CSS_SELECTOR, "button.btn-add-to-basket")
+
+    # Локаторы поиска имени\цены в карточке товара
+    PRODUCT_NAME = (By.CSS_SELECTOR,"div.product_main h1")
+    PRODUCT_PRICE = (By.CSS_SELECTOR,"p.price_color")
+
+    # Локаторы поиска имени\цены в поле добавления
+    BUSKET_PRODUCT_NAME = (By.CSS_SELECTOR,".alertinner strong")
+    BUSKET_PRODUCT_PRICE = (By.CSS_SELECTOR, "[class='alert alert-safe alert-noicon alert-info  fade in'] strong")
