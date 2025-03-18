@@ -52,3 +52,19 @@ class ProductPage(BasePage):
         print(f"Цена книги на странице: {price_product_book}")
         print(f"Цена книги в корзине: {busket_price}")
         assert price_product_book == busket_price, f"Цена книги в добавлении: {busket_price} не совпадает с заголовком: {price_product_book}"
+
+    def sravnenie_oba(self):
+        self.add_to_busket()
+
+        price_product_book = self.get_product_price()
+        name_product_book = self.get_product_name()
+        
+        busket_price = self.browser.find_element(*ProductPageLocators.BUSKET_PRODUCT_PRICE).text
+        busket_name = self.browser.find_element(*ProductPageLocators.BUSKET_PRODUCT_NAME).text
+
+        print(f"Цена книги и цены на странице: {price_product_book} и {name_product_book}")
+        print(f"Цена книги и цены в корзине: {busket_price} и {busket_name}")
+        
+        assert price_product_book == busket_price, f"Цена книги в добавлении: {busket_price} не совпадает с заголовком и ценой: {price_product_book}"
+
+        assert name_product_book == busket_name, f"Название книги в добавлении: {busket_name} не совпадает с заголовком и ценой: {name_product_book}"
