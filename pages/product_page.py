@@ -23,6 +23,7 @@ class ProductPage(BasePage):
         price_product = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
         return price_product.text
     
+    
     # Функция сравенеия названия в карточке товара и названия в поле корзины
     def sravnenie_name(self):
         
@@ -52,7 +53,8 @@ class ProductPage(BasePage):
         print(f"Цена книги на странице: {price_product_book}")
         print(f"Цена книги в корзине: {busket_price}")
         assert price_product_book == busket_price, f"Цена книги в добавлении: {busket_price} не совпадает с заголовком: {price_product_book}"
-
+    
+    # Функция сравнения цены и имени в карточке и поле корзины
     def sravnenie_oba(self):
         self.add_to_busket()
 
@@ -68,3 +70,21 @@ class ProductPage(BasePage):
         assert price_product_book == busket_price, f"Цена книги в добавлении: {busket_price} не совпадает с заголовком и ценой: {price_product_book}"
 
         assert name_product_book == busket_name, f"Название книги в добавлении: {busket_name} не совпадает с заголовком и ценой: {name_product_book}"
+
+    
+    # 3 Функции отрицательных проверок отсутствия элемента
+
+    # Должно быть сообщение о добавлении 
+    def should_be_success_message(self):
+        message = "success message is not presented, but should be"
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE, timeout=1), message # Если в течение timeout не появится, то вызовет massage
+    
+    # Не должно быть сообщения о добавлении
+    def should_not_be_success_message(self):
+        message = "success message is presented, but should not be"
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE, timeout=1), message # Если в течение timeout появится, то вызовет massage
+    
+    # Сообщение должно пропасть 
+    def success_message_should_disappear(self):
+        message = "success message still present, but should disappear"
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), message # Если не пропаде в течение timeout в base_page, то вызовет massage

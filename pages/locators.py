@@ -20,3 +20,12 @@ class ProductPageLocators():
     # Локаторы поиска имени\цены в поле добавления
     BUSKET_PRODUCT_NAME = (By.CSS_SELECTOR,".alertinner strong")
     BUSKET_PRODUCT_PRICE = (By.CSS_SELECTOR, "[class='alert alert-safe alert-noicon alert-info  fade in'] strong")
+
+
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages > .alert-success")
+    PRODUCT_IN_SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages > .alert-success > .alertinner > strong")
+    TOTAL_MESSAGE = (By.CSS_SELECTOR, "#messages > .alert-info > .alertinner > p > strong")
+
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
