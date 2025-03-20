@@ -10,6 +10,7 @@ from .pages.main_page import MainPage
 from .pages.base_page import BasePage
 from .pages.product_page import ProductPage
 from .test_main_page import TestLoginFromMainPage 
+from .pages.basket_page import BasketPage
 import time
 
 # Общий список URL для parametrize
@@ -48,6 +49,7 @@ def test_guest_add_vernoe_price(browser):
     page.open()
     page.sravnenie_price()
 
+@pytest.mark.need_review
 # Применяем parametrize к test_guest_can_add_product_to_basket
 @pytest.mark.parametrize('link', offer_links)
 def test_guest_can_add_product_to_basket(browser, link):
@@ -95,9 +97,18 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.open()
     page.go_to_login_page()
 
+@pytest.mark.need_review
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasePage(browser, link)
+    page.open()
+    page.go_to_cart() # Используем метод (выполняем функцию) go_to_cart (переход в корзину) класса BasePage
+    basket = BasketPage(browser, link) # Инициализируем класс BasketPage чтобы использовать его методы
+    basket.basket_is_empty() # Проверяем, что корзина пуста, используя метод basket_is_empty класса BasketPage
+    basket.basket_is_empty_message() # Проверяем, что есть сообщение о том, что корзина пуста, используя метод basket_is_empty класса BasketPage
 
 # Передача на ревью
-@pytest.mark.review
+@pytest.mark.need_review
 class TestUserAddToBasketFromProductPage():
     
     @pytest.fixture(scope="function", autouse=True)
@@ -122,3 +133,5 @@ class TestUserAddToBasketFromProductPage():
         page.open()
         page.add_to_busket_user()
         time.sleep(10)
+
+# pytest -v --tb=line --language=en -m need_review

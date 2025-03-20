@@ -36,3 +36,10 @@ class BasePageLocators():
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
 
     USER_ICON = (By.CSS_SELECTOR, ".icon-user")
+
+    CART_LINK = (By.XPATH, '//a[contains(text(), "basket")]')
+
+class BasketPageLocators():
+
+    PRODUCTS_IN_BASKET = (By.CSS_SELECTOR, '[class="basket-title hidden-xs"]')
+    BASKET_STATUS = (By.XPATH, '//p[contains(text(), "Your basket")]')
