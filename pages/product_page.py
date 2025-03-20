@@ -12,6 +12,9 @@ class ProductPage(BasePage):
     def add_to_busket(self):
         self.browser.find_element(*ProductPageLocators.ADD_BUTTON).click()
         self.solve_quiz_and_get_code()
+    
+    def add_to_busket_user(self):
+        self.browser.find_element(*ProductPageLocators.ADD_BUTTON).click()
 
      # Функция получает название товара
     def get_product_name(self):

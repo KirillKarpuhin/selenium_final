@@ -9,6 +9,8 @@ import math
 from .pages.main_page import MainPage
 from .pages.base_page import BasePage
 from .pages.product_page import ProductPage
+from .test_main_page import TestLoginFromMainPage 
+import time
 
 # Общий список URL для parametrize
 offer_links = [
@@ -92,3 +94,31 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
+
+
+# Передача на ревью
+@pytest.mark.review
+class TestUserAddToBasketFromProductPage():
+    
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        self.browser = browser  # Сохраняем browser как атрибут класса
+        self.link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"  # Задаем ссылку
+
+        login_test = TestLoginFromMainPage()
+        login_test.test_guest_can_do_to_login_page(browser)
+        login_zareg = LoginPage(browser, "http://selenium1py.pythonanywhere.com/")  # Передаем URL
+        login_zareg.register_new_user()
+        user_vhod = BasePage(browser, "http://selenium1py.pythonanywhere.com/")  # Передаем URL
+        user_vhod.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self):
+        page = ProductPage(self.browser, self.link)
+        page.open()
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self):
+        page = ProductPage(self.browser, self.link)
+        page.open()
+        page.add_to_busket_user()
+        time.sleep(10)
